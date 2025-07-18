@@ -31,7 +31,7 @@ fastify.setNotFoundHandler((request, reply) => {
   }
 })
 
-fastify.listen({ port: process.env.APP_PORT || 8000 }, (err) => {
+fastify.listen({ port: process.env.APP_PORT || 8000, host: '0.0.0.0' }, (err) => {
   if (err) {
     throw err
   }
