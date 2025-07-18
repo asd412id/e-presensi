@@ -116,7 +116,7 @@ export default function IndexPage() {
   };
 
   return (
-    <DefaultLayout>
+    <DefaultLayout title="E-Presensi - Sistem Presensi Digital">
       <NotificationContainer
         notifications={notifications}
         onRemoveNotification={removeNotification}
