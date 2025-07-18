@@ -174,7 +174,12 @@ export default function DaftarPresensiKegiatan({
 
   return (
     <>
-      <Modal isOpen={isOpen} size="5xl" onClose={onClose}>
+      <Modal
+        isOpen={isOpen}
+        scrollBehavior="inside"
+        size="5xl"
+        onClose={onClose}
+      >
         <ModalContent>
           <ModalHeader className="flex flex-col gap-1">
             <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
@@ -381,6 +386,7 @@ export default function DaftarPresensiKegiatan({
       {/* Signature Modal */}
       <Modal
         isOpen={signatureModalOpen}
+        scrollBehavior="inside"
         size="2xl"
         onClose={() => setSignatureModalOpen(false)}
       >

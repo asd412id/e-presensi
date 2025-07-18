@@ -56,34 +56,34 @@ export default function DashboardPage() {
 
   return (
     <DefaultLayout title="Dashboard">
-      <div className="w-full max-w-7xl mx-auto space-y-8">
+      <div className="w-full max-w-7xl mx-auto space-y-6 md:space-y-8">
         {/* Hero Section */}
-        <div className="relative overflow-hidden bg-gradient-to-r from-violet-600 via-purple-600 to-blue-600 rounded-3xl p-8 md:p-12 text-white shadow-2xl">
+        <div className="relative overflow-hidden bg-gradient-to-r from-violet-600 via-purple-600 to-blue-600 rounded-2xl md:rounded-3xl p-6 md:p-8 lg:p-12 text-white shadow-2xl">
           <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" />
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-32 translate-x-32" />
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full blur-2xl translate-y-24 -translate-x-24" />
+          <div className="absolute top-0 right-0 w-32 h-32 md:w-64 md:h-64 bg-white/10 rounded-full blur-3xl -translate-y-16 translate-x-16 md:-translate-y-32 md:translate-x-32" />
+          <div className="absolute bottom-0 left-0 w-24 h-24 md:w-48 md:h-48 bg-white/5 rounded-full blur-2xl translate-y-12 -translate-x-12 md:translate-y-24 md:-translate-x-24" />
 
           <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 bg-white/20 rounded-xl backdrop-blur-sm">
-                <IconCalendarEvent size={32} />
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-6">
+              <div className="p-2 md:p-3 bg-white/20 rounded-lg md:rounded-xl backdrop-blur-sm flex-shrink-0">
+                <IconCalendarEvent className="md:w-8 md:h-8" size={24} />
               </div>
-              <div>
-                <h1 className="text-3xl md:text-4xl font-bold">
+              <div className="flex-1 min-w-0">
+                <h1 className="text-xl md:text-3xl lg:text-4xl font-bold leading-tight">
                   Selamat Datang di E-Presensi
                 </h1>
-                <p className="text-white/80 text-lg mt-1">
+                <p className="text-white/80 text-sm md:text-lg mt-1 leading-relaxed">
                   Kelola kegiatan dan presensi dengan mudah dan efisien
                 </p>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 mt-8">
+            <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
               <Button
                 as={Link}
                 className="bg-white/20 backdrop-blur-sm border border-white/30 text-white hover:bg-white/30"
-                size="lg"
-                startContent={<IconPlus size={20} />}
+                size="md"
+                startContent={<IconPlus size={18} />}
                 to="/kegiatan"
                 variant="bordered"
               >
@@ -92,8 +92,8 @@ export default function DashboardPage() {
               <Button
                 as={Link}
                 className="bg-white text-purple-600 hover:bg-white/90"
-                size="lg"
-                startContent={<IconChartBar size={20} />}
+                size="md"
+                startContent={<IconChartBar size={18} />}
                 to="/kegiatan"
                 variant="solid"
               >
@@ -104,20 +104,20 @@ export default function DashboardPage() {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {/* Total Kegiatan Card */}
           <Card className="bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-950/50 dark:to-purple-950/50 border-violet-200 dark:border-violet-800 hover:shadow-lg transition-all duration-300">
-            <CardBody className="p-6">
+            <CardBody className="p-4 md:p-6">
               <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-violet-600 dark:text-violet-400 mb-1">
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs md:text-sm font-medium text-violet-600 dark:text-violet-400 mb-1">
                     Total Kegiatan
                   </p>
-                  <div className="flex items-baseline gap-2">
+                  <div className="flex items-baseline gap-2 flex-wrap">
                     {loading ? (
-                      <div className="w-16 h-8 bg-violet-200 dark:bg-violet-800 rounded animate-pulse" />
+                      <div className="w-12 md:w-16 h-6 md:h-8 bg-violet-200 dark:bg-violet-800 rounded animate-pulse" />
                     ) : (
-                      <p className="text-3xl font-bold text-violet-900 dark:text-violet-100">
+                      <p className="text-2xl md:text-3xl font-bold text-violet-900 dark:text-violet-100">
                         {stats.totalKegiatan}
                       </p>
                     )}
@@ -130,10 +130,10 @@ export default function DashboardPage() {
                     </Chip>
                   </div>
                 </div>
-                <div className="p-3 bg-violet-100 dark:bg-violet-900/50 rounded-xl">
+                <div className="p-2 md:p-3 bg-violet-100 dark:bg-violet-900/50 rounded-lg md:rounded-xl flex-shrink-0">
                   <IconCalendarEvent
                     className="text-violet-600 dark:text-violet-400"
-                    size={24}
+                    size={20}
                   />
                 </div>
               </div>
@@ -142,17 +142,17 @@ export default function DashboardPage() {
 
           {/* Presensi Hari Ini Card */}
           <Card className="bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-950/50 dark:to-cyan-950/50 border-blue-200 dark:border-blue-800 hover:shadow-lg transition-all duration-300">
-            <CardBody className="p-6">
+            <CardBody className="p-4 md:p-6">
               <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-1">
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs md:text-sm font-medium text-blue-600 dark:text-blue-400 mb-1">
                     Kegiatan Hari Ini
                   </p>
-                  <div className="flex items-baseline gap-2">
+                  <div className="flex items-baseline gap-2 flex-wrap">
                     {loading ? (
-                      <div className="w-16 h-8 bg-blue-200 dark:bg-blue-800 rounded animate-pulse" />
+                      <div className="w-12 md:w-16 h-6 md:h-8 bg-blue-200 dark:bg-blue-800 rounded animate-pulse" />
                     ) : (
-                      <p className="text-3xl font-bold text-blue-900 dark:text-blue-100">
+                      <p className="text-2xl md:text-3xl font-bold text-blue-900 dark:text-blue-100">
                         {stats.kegiatanHariIni}
                       </p>
                     )}
@@ -165,10 +165,10 @@ export default function DashboardPage() {
                     </Chip>
                   </div>
                 </div>
-                <div className="p-3 bg-blue-100 dark:bg-blue-900/50 rounded-xl">
+                <div className="p-2 md:p-3 bg-blue-100 dark:bg-blue-900/50 rounded-lg md:rounded-xl flex-shrink-0">
                   <IconCalendarCheck
                     className="text-blue-600 dark:text-blue-400"
-                    size={24}
+                    size={20}
                   />
                 </div>
               </div>
@@ -177,17 +177,17 @@ export default function DashboardPage() {
 
           {/* Total Peserta Card */}
           <Card className="bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-950/50 dark:to-green-950/50 border-emerald-200 dark:border-emerald-800 hover:shadow-lg transition-all duration-300">
-            <CardBody className="p-6">
+            <CardBody className="p-4 md:p-6">
               <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-emerald-600 dark:text-emerald-400 mb-1">
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs md:text-sm font-medium text-emerald-600 dark:text-emerald-400 mb-1">
                     Total Presensi
                   </p>
-                  <div className="flex items-baseline gap-2">
+                  <div className="flex items-baseline gap-2 flex-wrap">
                     {loading ? (
-                      <div className="w-16 h-8 bg-emerald-200 dark:bg-emerald-800 rounded animate-pulse" />
+                      <div className="w-12 md:w-16 h-6 md:h-8 bg-emerald-200 dark:bg-emerald-800 rounded animate-pulse" />
                     ) : (
-                      <p className="text-3xl font-bold text-emerald-900 dark:text-emerald-100">
+                      <p className="text-2xl md:text-3xl font-bold text-emerald-900 dark:text-emerald-100">
                         {stats.totalPresensi}
                       </p>
                     )}
@@ -201,10 +201,10 @@ export default function DashboardPage() {
                     </Chip>
                   </div>
                 </div>
-                <div className="p-3 bg-emerald-100 dark:bg-emerald-900/50 rounded-xl">
+                <div className="p-2 md:p-3 bg-emerald-100 dark:bg-emerald-900/50 rounded-lg md:rounded-xl flex-shrink-0">
                   <IconUsers
                     className="text-emerald-600 dark:text-emerald-400"
-                    size={24}
+                    size={20}
                   />
                 </div>
               </div>
@@ -213,47 +213,47 @@ export default function DashboardPage() {
         </div>
 
         {/* Tips & Quick Actions */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
           {/* Tips Section */}
           <Card className="bg-gradient-to-br from-orange-50 to-yellow-50 dark:from-orange-950/50 dark:to-yellow-950/50 border-orange-200 dark:border-orange-800">
-            <CardHeader className="pb-3">
-              <div className="flex items-center gap-3">
+            <CardHeader className="pb-2 md:pb-3">
+              <div className="flex items-center gap-2 md:gap-3">
                 <div className="p-2 bg-orange-100 dark:bg-orange-900/50 rounded-lg">
                   <IconClipboardList
                     className="text-orange-600 dark:text-orange-400"
-                    size={24}
+                    size={20}
                   />
                 </div>
-                <h2 className="text-xl font-semibold text-orange-900 dark:text-orange-100">
+                <h2 className="text-lg md:text-xl font-semibold text-orange-900 dark:text-orange-100">
                   Tips Penggunaan
                 </h2>
               </div>
             </CardHeader>
             <CardBody className="pt-0">
-              <div className="space-y-4">
+              <div className="space-y-3 md:space-y-4">
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-orange-400 rounded-full mt-2 flex-shrink-0" />
-                  <p className="text-orange-800 dark:text-orange-200">
+                  <p className="text-sm md:text-base text-orange-800 dark:text-orange-200">
                     Buat kegiatan baru dengan mengklik tombol{" "}
                     <span className="font-semibold">Buat Kegiatan Baru</span>
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-orange-400 rounded-full mt-2 flex-shrink-0" />
-                  <p className="text-orange-800 dark:text-orange-200">
+                  <p className="text-sm md:text-base text-orange-800 dark:text-orange-200">
                     Kelola dan edit kegiatan langsung dari daftar kegiatan
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-orange-400 rounded-full mt-2 flex-shrink-0" />
-                  <p className="text-orange-800 dark:text-orange-200">
+                  <p className="text-sm md:text-base text-orange-800 dark:text-orange-200">
                     Gunakan fitur pencarian untuk menemukan kegiatan dengan
                     cepat
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-orange-400 rounded-full mt-2 flex-shrink-0" />
-                  <p className="text-orange-800 dark:text-orange-200">
+                  <p className="text-sm md:text-base text-orange-800 dark:text-orange-200">
                     Download PDF presensi untuk laporan dan dokumentasi
                   </p>
                 </div>
@@ -263,15 +263,15 @@ export default function DashboardPage() {
 
           {/* Quick Actions */}
           <Card className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/50 dark:to-pink-950/50 border-purple-200 dark:border-purple-800">
-            <CardHeader className="pb-3">
-              <div className="flex items-center gap-3">
+            <CardHeader className="pb-2 md:pb-3">
+              <div className="flex items-center gap-2 md:gap-3">
                 <div className="p-2 bg-purple-100 dark:bg-purple-900/50 rounded-lg">
                   <IconTrendingUp
                     className="text-purple-600 dark:text-purple-400"
-                    size={24}
+                    size={20}
                   />
                 </div>
-                <h2 className="text-xl font-semibold text-purple-900 dark:text-purple-100">
+                <h2 className="text-lg md:text-xl font-semibold text-purple-900 dark:text-purple-100">
                   Aksi Cepat
                 </h2>
               </div>
@@ -281,8 +281,8 @@ export default function DashboardPage() {
                 <Button
                   as={Link}
                   className="w-full justify-start bg-white dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 hover:bg-purple-50 dark:hover:bg-purple-900/40"
-                  size="lg"
-                  startContent={<IconPlus size={20} />}
+                  size="md"
+                  startContent={<IconPlus size={18} />}
                   to="/kegiatan"
                   variant="bordered"
                 >
@@ -291,8 +291,8 @@ export default function DashboardPage() {
                 <Button
                   as={Link}
                   className="w-full justify-start bg-white dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 hover:bg-purple-50 dark:hover:bg-purple-900/40"
-                  size="lg"
-                  startContent={<IconCalendarEvent size={20} />}
+                  size="md"
+                  startContent={<IconCalendarEvent size={18} />}
                   to="/kegiatan"
                   variant="bordered"
                 >
@@ -301,8 +301,8 @@ export default function DashboardPage() {
                 <Button
                   as={Link}
                   className="w-full justify-start bg-white dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 hover:bg-purple-50 dark:hover:bg-purple-900/40"
-                  size="lg"
-                  startContent={<IconChartBar size={20} />}
+                  size="md"
+                  startContent={<IconChartBar size={18} />}
                   to="/kegiatan"
                   variant="bordered"
                 >

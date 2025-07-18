@@ -88,18 +88,18 @@ export default function ListKegiatanPage() {
       key: "nama",
       label: "Nama Kegiatan",
       render: (row: any) => (
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-violet-100 dark:bg-violet-900/50 rounded-lg">
+        <div className="flex items-center gap-2 md:gap-3">
+          <div className="p-1.5 md:p-2 bg-violet-100 dark:bg-violet-900/50 rounded-lg flex-shrink-0">
             <IconCalendarEvent
               className="text-violet-600 dark:text-violet-400"
-              size={16}
+              size={14}
             />
           </div>
-          <div>
-            <p className="font-semibold text-zinc-800 dark:text-zinc-200">
+          <div className="min-w-0 flex-1">
+            <p className="font-semibold text-sm md:text-base text-zinc-800 dark:text-zinc-200 min-w-[350px]">
               {row.nama}
             </p>
-            <p className="text-sm text-zinc-600 dark:text-zinc-400 truncate max-w-xs">
+            <p className="text-xs md:text-sm text-zinc-600 dark:text-zinc-400 min-w-[350px]">
               {row.deskripsi || "Tidak ada deskripsi"}
             </p>
           </div>
@@ -110,19 +110,19 @@ export default function ListKegiatanPage() {
       key: "waktu_mulai",
       label: "Jadwal",
       render: (row: any) => (
-        <div className="space-y-2">
-          <div className="flex items-center gap-2">
+        <div className="space-y-1 md:space-y-2">
+          <div className="flex items-center gap-1 md:gap-2">
             <IconClock
               className="text-green-600 dark:text-green-400"
-              size={14}
+              size={12}
             />
-            <span className="text-sm text-zinc-700 dark:text-zinc-300">
+            <span className="text-xs md:text-sm text-zinc-700 dark:text-zinc-300">
               Mulai: {formatDateTime(row.waktu_mulai)}
             </span>
           </div>
-          <div className="flex items-center gap-2">
-            <IconClock className="text-red-600 dark:text-red-400" size={14} />
-            <span className="text-sm text-zinc-700 dark:text-zinc-300">
+          <div className="flex items-center gap-1 md:gap-2">
+            <IconClock className="text-red-600 dark:text-red-400" size={12} />
+            <span className="text-xs md:text-sm text-zinc-700 dark:text-zinc-300">
               Selesai: {formatDateTime(row.waktu_selesai)}
             </span>
           </div>
@@ -133,9 +133,9 @@ export default function ListKegiatanPage() {
       key: "lokasi",
       label: "Lokasi",
       render: (row: any) => (
-        <div className="flex items-center gap-2">
-          <IconMapPin className="text-blue-600 dark:text-blue-400" size={16} />
-          <span className="text-zinc-700 dark:text-zinc-300">
+        <div className="flex items-center gap-1 md:gap-2">
+          <IconMapPin className="text-blue-600 dark:text-blue-400" size={14} />
+          <span className="text-xs md:text-sm text-zinc-700 dark:text-zinc-300 truncate">
             {row.lokasi || "-"}
           </span>
         </div>
@@ -148,21 +148,33 @@ export default function ListKegiatanPage() {
         <div className="flex flex-wrap gap-1">
           {Array.isArray(row.attendance_fields) &&
             row.attendance_fields.length > 0 ? (
-            row.attendance_fields.map((field: string, index: number) => (
-              <Chip
-                key={index}
-                className="bg-violet-100 dark:bg-violet-900/50 text-violet-700 dark:text-violet-300"
-                size="sm"
-                variant="flat"
-              >
-                {field}
-              </Chip>
-            ))
+            row.attendance_fields
+              .slice(0, 3)
+              .map((field: string, index: number) => (
+                <Chip
+                  key={index}
+                  className="bg-violet-100 dark:bg-violet-900/50 text-violet-700 dark:text-violet-300"
+                  size="sm"
+                  variant="flat"
+                >
+                  {field}
+                </Chip>
+              ))
           ) : (
-            <span className="text-zinc-500 dark:text-zinc-400 text-sm">
+            <span className="text-zinc-500 dark:text-zinc-400 text-xs">
               Tidak ada field
             </span>
           )}
+          {Array.isArray(row.attendance_fields) &&
+            row.attendance_fields.length > 3 && (
+              <Chip
+                className="bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400"
+                size="sm"
+                variant="flat"
+              >
+                +{row.attendance_fields.length - 3}
+              </Chip>
+            )}
         </div>
       ),
     },
@@ -170,7 +182,7 @@ export default function ListKegiatanPage() {
       key: "actions",
       label: "Aksi",
       render: (row: any) => (
-        <div className="flex gap-1 items-center justify-end">
+        <div className="flex gap-0.5 md:gap-1 items-center justify-end">
           <Button
             isIconOnly
             className="bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-blue-900/70"
@@ -178,7 +190,7 @@ export default function ListKegiatanPage() {
             variant="flat"
             onPress={() => handleViewPresensi(row)}
           >
-            <IconEye size={16} />
+            <IconEye size={14} />
           </Button>
           <Button
             isIconOnly
@@ -189,9 +201,9 @@ export default function ListKegiatanPage() {
             onPress={() => handleDownloadPDF(row)}
           >
             {downloadingId == row.uuid ? (
-              <IconLoader2 className="animate-spin" size={16} />
+              <IconLoader2 className="animate-spin" size={14} />
             ) : (
-              <IconDownload size={16} />
+              <IconDownload size={14} />
             )}
           </Button>
           <Button
@@ -201,7 +213,7 @@ export default function ListKegiatanPage() {
             variant="flat"
             onPress={() => handleEdit(row)}
           >
-            <IconEdit size={16} />
+            <IconEdit size={14} />
           </Button>
           <Button
             isIconOnly
@@ -210,7 +222,7 @@ export default function ListKegiatanPage() {
             variant="flat"
             onPress={() => handleDelete(row)}
           >
-            <IconTrash size={16} />
+            <IconTrash size={14} />
           </Button>
           <Button
             isIconOnly
@@ -227,7 +239,7 @@ export default function ListKegiatanPage() {
               );
             }}
           >
-            <IconCopy size={16} />
+            <IconCopy size={14} />
           </Button>
         </div>
       ),
@@ -328,29 +340,29 @@ export default function ListKegiatanPage() {
       <div className="min-h-screen">
         {/* Hero Section */}
         <div className="relative overflow-hidden">
-          <div className="relative z-10 container mx-auto px-6 py-12">
+          <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-12">
             <Card className="backdrop-blur-xl bg-white/80 dark:bg-zinc-900/80 border-2 border-violet-200/50 dark:border-violet-800/50 shadow-2xl">
-              <CardHeader className="pb-4">
-                <div className="flex items-center justify-between w-full">
-                  <div className="flex items-center gap-4">
-                    <div className="p-3 bg-gradient-to-r from-violet-500 to-purple-600 rounded-2xl shadow-lg">
-                      <IconCalendarEvent className="text-white" size={32} />
+              <CardHeader className="pb-3 md:pb-4">
+                <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between w-full gap-4">
+                  <div className="flex items-center gap-3 md:gap-4 min-w-0 flex-1">
+                    <div className="p-2 md:p-3 bg-gradient-to-r from-violet-500 to-purple-600 rounded-xl md:rounded-2xl shadow-lg flex-shrink-0">
+                      <IconCalendarEvent className="text-white" size={24} />
                     </div>
-                    <div>
-                      <h1 className="text-3xl font-bold bg-gradient-to-r from-violet-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
+                    <div className="min-w-0 flex-1">
+                      <h1 className="text-xl md:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-violet-600 via-purple-600 to-blue-600 bg-clip-text text-transparent leading-tight">
                         Daftar Kegiatan
                       </h1>
-                      <p className="text-zinc-600 dark:text-zinc-400 mt-1">
+                      <p className="text-sm md:text-base text-zinc-600 dark:text-zinc-400 mt-1 leading-relaxed">
                         Kelola semua kegiatan dan presensi dalam satu tempat
                       </p>
                     </div>
                   </div>
 
                   <Button
-                    className="bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700 text-white font-semibold shadow-lg"
+                    className="bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700 text-white font-semibold shadow-lg w-full lg:w-auto"
                     radius="lg"
-                    size="lg"
-                    startContent={<IconPlus size={20} />}
+                    size="md"
+                    startContent={<IconPlus size={18} />}
                     onPress={handleOpenForm}
                   >
                     Buat Kegiatan Baru
@@ -359,54 +371,54 @@ export default function ListKegiatanPage() {
               </CardHeader>
 
               <CardBody className="pt-0">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                  <div className="flex items-center gap-3 p-4 bg-violet-50 dark:bg-violet-900/30 rounded-xl border border-violet-200 dark:border-violet-800">
-                    <div className="p-2 bg-violet-100 dark:bg-violet-900/50 rounded-lg">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 mb-4 md:mb-6">
+                  <div className="flex items-center gap-2 md:gap-3 p-3 md:p-4 bg-violet-50 dark:bg-violet-900/30 rounded-lg md:rounded-xl border border-violet-200 dark:border-violet-800">
+                    <div className="p-2 bg-violet-100 dark:bg-violet-900/50 rounded-lg flex-shrink-0">
                       <IconCalendarEvent
                         className="text-violet-600 dark:text-violet-400"
-                        size={20}
+                        size={18}
                       />
                     </div>
-                    <div>
-                      <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                    <div className="min-w-0 flex-1">
+                      <p className="text-xs md:text-sm text-zinc-600 dark:text-zinc-400">
                         Total Kegiatan
                       </p>
-                      <p className="text-xl font-bold text-violet-600 dark:text-violet-400">
+                      <p className="text-lg md:text-xl font-bold text-violet-600 dark:text-violet-400">
                         {meta?.total || 0}
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-3 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-xl border border-blue-200 dark:border-blue-800">
-                    <div className="p-2 bg-blue-100 dark:bg-blue-900/50 rounded-lg">
+                  <div className="flex items-center gap-2 md:gap-3 p-3 md:p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg md:rounded-xl border border-blue-200 dark:border-blue-800">
+                    <div className="p-2 bg-blue-100 dark:bg-blue-900/50 rounded-lg flex-shrink-0">
                       <IconUsers
                         className="text-blue-600 dark:text-blue-400"
-                        size={20}
+                        size={18}
                       />
                     </div>
-                    <div>
-                      <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                    <div className="min-w-0 flex-1">
+                      <p className="text-xs md:text-sm text-zinc-600 dark:text-zinc-400">
                         Halaman
                       </p>
-                      <p className="text-xl font-bold text-blue-600 dark:text-blue-400">
+                      <p className="text-lg md:text-xl font-bold text-blue-600 dark:text-blue-400">
                         {meta?.currentPage || 1} /{" "}
                         {Math.ceil((meta?.total || 0) / (meta?.perPage || 10))}
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-3 p-4 bg-green-50 dark:bg-green-900/30 rounded-xl border border-green-200 dark:border-green-800">
-                    <div className="p-2 bg-green-100 dark:bg-green-900/50 rounded-lg">
+                  <div className="flex items-center gap-2 md:gap-3 p-3 md:p-4 bg-green-50 dark:bg-green-900/30 rounded-lg md:rounded-xl border border-green-200 dark:border-green-800">
+                    <div className="p-2 bg-green-100 dark:bg-green-900/50 rounded-lg flex-shrink-0">
                       <IconClock
                         className="text-green-600 dark:text-green-400"
-                        size={20}
+                        size={18}
                       />
                     </div>
-                    <div>
-                      <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                    <div className="min-w-0 flex-1">
+                      <p className="text-xs md:text-sm text-zinc-600 dark:text-zinc-400">
                         Per Halaman
                       </p>
-                      <p className="text-xl font-bold text-green-600 dark:text-green-400">
+                      <p className="text-lg md:text-xl font-bold text-green-600 dark:text-green-400">
                         {meta?.perPage || 10}
                       </p>
                     </div>

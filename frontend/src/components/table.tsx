@@ -90,8 +90,8 @@ const Table: React.FC<TableProps> = ({
       </div>
 
       {/* Table Content */}
-      <div className="p-6">
-        <div className="overflow-x-auto rounded-xl bg-white/50 dark:bg-zinc-800/50 border border-violet-200/30 dark:border-violet-800/30">
+      <div className="p-3 md:p-6">
+        <div className="overflow-x-auto overflow-y-hidden rounded-xl bg-white/50 dark:bg-zinc-800/50 border border-violet-200/30 dark:border-violet-800/30">
           {loading ? (
             <div className="w-full flex flex-col items-center justify-center py-20">
               <div className="relative">
@@ -133,8 +133,8 @@ const Table: React.FC<TableProps> = ({
               aria-label="Tabel Data"
               className="min-w-full"
               classNames={{
-                base: "overflow-hidden",
-                table: "min-h-[200px]",
+                base: "overflow-visible",
+                table: "min-h-[200px] w-full min-w-[600px]",
                 thead:
                   "bg-gradient-to-r from-violet-100 to-purple-100 dark:from-violet-900/50 dark:to-purple-900/50",
                 tbody: "",
@@ -147,14 +147,17 @@ const Table: React.FC<TableProps> = ({
                   "bg-transparent",
                   "text-violet-700 dark:text-violet-300",
                   "font-semibold",
-                  "text-sm",
-                  "py-4 px-6",
+                  "text-xs md:text-sm",
+                  "py-2 md:py-4 px-2 md:px-4",
                   "border-b-2 border-violet-300 dark:border-violet-700",
+                  "break-words",
                 ],
                 td: [
-                  "py-4 px-6",
+                  "py-2 md:py-4 px-2 md:px-4",
                   "text-zinc-700 dark:text-zinc-300",
-                  "text-sm",
+                  "text-xs md:text-sm",
+                  "break-words",
+                  "overflow-wrap-anywhere",
                 ],
               }}
             >
@@ -168,9 +171,11 @@ const Table: React.FC<TableProps> = ({
                   <TableRow key={item.id || item.uuid || JSON.stringify(item)}>
                     {columns.map((column) => (
                       <TableCell key={column.key}>
-                        {column.render
-                          ? column.render(item)
-                          : String(item[column.key] || "-")}
+                        <div className="break-words overflow-wrap-anywhere">
+                          {column.render
+                            ? column.render(item)
+                            : String(item[column.key] || "-")}
+                        </div>
                       </TableCell>
                     ))}
                   </TableRow>
@@ -182,15 +187,15 @@ const Table: React.FC<TableProps> = ({
 
         {/* Pagination and Stats */}
         {meta && (
-          <div className="flex flex-col md:flex-row justify-between items-center mt-6 pt-6 border-t border-violet-200/50 dark:border-violet-800/50">
-            <div className="flex items-center gap-2 mb-4 md:mb-0">
-              <span className="text-sm text-zinc-600 dark:text-zinc-400">
+          <div className="flex flex-col md:flex-row justify-between items-center mt-4 md:mt-6 pt-4 md:pt-6 border-t border-violet-200/50 dark:border-violet-800/50">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 mb-4 md:mb-0">
+              <span className="text-xs md:text-sm text-zinc-600 dark:text-zinc-400">
                 Menampilkan {data.length} dari {meta.total} data
               </span>
               {searchQuery && (
-                <div className="flex items-center gap-2 ml-4">
+                <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-violet-500 rounded-full" />
-                  <span className="text-sm text-violet-600 dark:text-violet-400 font-medium">
+                  <span className="text-xs md:text-sm text-violet-600 dark:text-violet-400 font-medium">
                     Hasil pencarian: &ldquo;{searchQuery}&rdquo;
                   </span>
                 </div>
@@ -201,15 +206,16 @@ const Table: React.FC<TableProps> = ({
               className="flex justify-center md:justify-end"
               classNames={{
                 base: "",
-                wrapper: "gap-1",
-                item: "bg-white/60 dark:bg-zinc-800/60 text-zinc-700 dark:text-zinc-300 border border-violet-200 dark:border-violet-700 hover:bg-violet-100 dark:hover:bg-violet-900/50",
+                wrapper: "gap-0.5 md:gap-1",
+                item: "bg-white/60 dark:bg-zinc-800/60 text-zinc-700 dark:text-zinc-300 border border-violet-200 dark:border-violet-700 hover:bg-violet-100 dark:hover:bg-violet-900/50 text-xs md:text-sm min-w-[32px] md:min-w-[40px] h-8 md:h-10",
                 cursor:
-                  "bg-gradient-to-r from-violet-500 to-purple-600 text-white shadow-lg",
-                prev: "bg-white/60 dark:bg-zinc-800/60 text-zinc-700 dark:text-zinc-300 border border-violet-200 dark:border-violet-700 hover:bg-violet-100 dark:hover:bg-violet-900/50",
-                next: "bg-white/60 dark:bg-zinc-800/60 text-zinc-700 dark:text-zinc-300 border border-violet-200 dark:border-violet-700 hover:bg-violet-100 dark:hover:bg-violet-900/50",
+                  "bg-gradient-to-r from-violet-500 to-purple-600 text-white shadow-lg text-xs md:text-sm min-w-[32px] md:min-w-[40px] h-8 md:h-10",
+                prev: "bg-white/60 dark:bg-zinc-800/60 text-zinc-700 dark:text-zinc-300 border border-violet-200 dark:border-violet-700 hover:bg-violet-100 dark:hover:bg-violet-900/50 text-xs md:text-sm min-w-[32px] md:min-w-[40px] h-8 md:h-10",
+                next: "bg-white/60 dark:bg-zinc-800/60 text-zinc-700 dark:text-zinc-300 border border-violet-200 dark:border-violet-700 hover:bg-violet-100 dark:hover:bg-violet-900/50 text-xs md:text-sm min-w-[32px] md:min-w-[40px] h-8 md:h-10",
               }}
               page={meta.page}
               radius="lg"
+              size="sm"
               total={meta.totalPages}
               onChange={handlePageChange}
             />

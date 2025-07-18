@@ -283,18 +283,21 @@ export default function FormKegiatan({
       isDismissable={false}
       isKeyboardDismissDisabled={true}
       isOpen={isOpen}
+      scrollBehavior="inside"
       size="2xl"
       onClose={handleClose}
     >
-      <ModalContent>
-        <ModalHeader className="flex flex-row items-center justify-between">
-          <span>{isEdit ? "Edit Kegiatan" : "Tambah Kegiatan Baru"}</span>
+      <ModalContent className="mx-4 my-4 md:mx-auto md:my-8 max-h-[calc(100vh-2rem)] md:max-h-[calc(100vh-4rem)]">
+        <ModalHeader className="flex flex-row items-center justify-between px-4 md:px-6 py-3 md:py-4 flex-shrink-0">
+          <span className="text-lg md:text-xl font-semibold">
+            {isEdit ? "Edit Kegiatan" : "Tambah Kegiatan Baru"}
+          </span>
           <Button isIconOnly size="sm" variant="light" onPress={handleClose}>
             <IconX size={18} />
           </Button>
         </ModalHeader>
-        <ModalBody>
-          <div className="flex flex-col gap-4">
+        <ModalBody className="px-4 md:px-6 py-0 overflow-y-auto flex-1">
+          <div className="flex flex-col gap-3 md:gap-4 pb-4">
             {/* Nama Kegiatan */}
             <Input
               errorMessage={errors.nama}
@@ -380,8 +383,10 @@ export default function FormKegiatan({
             </div>
 
             <Button
+              className="w-full md:w-auto"
               color="secondary"
               isLoading={useCurrentLocation}
+              size="md"
               variant="flat"
               onPress={getCurrentLocation}
             >
@@ -411,6 +416,7 @@ export default function FormKegiatan({
                   <Chip
                     key={field}
                     color="primary"
+                    size="sm"
                     variant="flat"
                     onClose={() => removeAttendanceField(field)}
                   >
@@ -444,7 +450,7 @@ export default function FormKegiatan({
             </div>
           </div>
         </ModalBody>
-        <ModalFooter>
+        <ModalFooter className="px-4 md:px-6 py-3 md:py-4 flex-shrink-0">
           <Button color="danger" variant="light" onPress={handleClose}>
             Batal
           </Button>

@@ -42,15 +42,15 @@ export default function DefaultLayout({
 
         {/* Enhanced footer */}
         <footer className="relative z-10 w-full border-t border-violet-200/50 dark:border-violet-800/50 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-md">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div className="flex flex-col sm:flex-row items-center justify-end gap-4">
-              <div className="flex items-center gap-4 text-sm">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+            <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-end gap-2 sm:gap-4">
+              <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-xs sm:text-sm">
                 <div className="flex items-center gap-2 text-zinc-600 dark:text-zinc-400">
                   <span>Made with</span>
-                  <IconHeart className="text-red-500 animate-pulse" size={16} />
+                  <IconHeart className="text-red-500 animate-pulse" size={14} />
                   <span>for better attendance</span>
                 </div>
-                <div className="h-4 w-px bg-zinc-300 dark:bg-zinc-600" />
+                <div className="hidden sm:block h-4 w-px bg-zinc-300 dark:bg-zinc-600" />
                 <span className="text-zinc-500 dark:text-zinc-400">
                   &copy; {new Date().getFullYear()} E-Presensi
                 </span>
