@@ -11,6 +11,7 @@ import { Input, Textarea } from "@heroui/input";
 import { DatePicker } from "@heroui/date-picker";
 import { Chip } from "@heroui/chip";
 import { CalendarDateTime } from "@internationalized/date";
+import { IconX } from "@tabler/icons-react";
 
 import fetchApi from "@/config/api";
 import { useNotification } from "@/hooks/useNotification";
@@ -277,10 +278,20 @@ export default function FormKegiatan({
   };
 
   return (
-    <Modal isOpen={isOpen} size="2xl" onClose={handleClose}>
+    <Modal
+      closeButton={<></>}
+      isDismissable={false}
+      isKeyboardDismissDisabled={true}
+      isOpen={isOpen}
+      size="2xl"
+      onClose={handleClose}
+    >
       <ModalContent>
-        <ModalHeader className="flex flex-col gap-1">
-          {isEdit ? "Edit Kegiatan" : "Tambah Kegiatan Baru"}
+        <ModalHeader className="flex flex-row items-center justify-between">
+          <span>{isEdit ? "Edit Kegiatan" : "Tambah Kegiatan Baru"}</span>
+          <Button isIconOnly size="sm" variant="light" onPress={handleClose}>
+            <IconX size={18} />
+          </Button>
         </ModalHeader>
         <ModalBody>
           <div className="flex flex-col gap-4">
