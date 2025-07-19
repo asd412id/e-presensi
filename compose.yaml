@@ -5,8 +5,8 @@ services:
     ports:
       - "8001:80"
     volumes:
-      - ./nginx.conf:/opt/bitnami/nginx/conf/server_blocks/site.conf:ro
-      - ../frontend:/frontend
+      - ./docker/nginx.conf:/opt/bitnami/nginx/conf/server_blocks/site.conf:ro
+      - ./frontend:/frontend
     depends_on:
       - app
     networks:
@@ -15,11 +15,11 @@ services:
 
   app:
     build:
-      context: ../
+      context: ./
       dockerfile: docker/backend.Dockerfile
     container_name: e_presensi_app
     volumes:
-      - ../:/app
+      - ./:/app
     working_dir: /app/backend
     command: sh -c "node src/app.js"
     depends_on:
