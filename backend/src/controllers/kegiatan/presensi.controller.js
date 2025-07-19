@@ -193,7 +193,13 @@ async function presensiController(route) {
 
       // Validasi rate limiting (mencegah spam)
       // Cek apakah ada presensi dari IP yang sama dalam 5 menit terakhir
-      const clientIP = req.ip || req.connection.remoteAddress;
+      const clientIP = req.headers['x-forwarded-for']?.split(',')[0]?.trim() ||
+        req.headers['x-real-ip'] ||
+        req.headers['x-client-ip'] ||
+        req.connection.remoteAddress ||
+        req.socket.remoteAddress ||
+        req.ip ||
+        'unknown';
       const fiveMinutesAgo = new Date(now.getTime() - 5 * 60 * 1000);
 
       const recentPresensi = await presensiService.checkRecentPresensiByIP(
@@ -210,11 +216,6 @@ async function presensiController(route) {
       const sanitizedAttendance = {};
       for (const field of requiredFields) {
         sanitizedAttendance[field] = attendance[field].trim();
-
-        // Validasi panjang field
-        if (sanitizedAttendance[field].length > 255) {
-          return errorResponse(res, `Field ${field} terlalu panjang (maksimal 255 karakter)`, 400);
-        }
 
         // Validasi karakter berbahaya
         if (/<script|javascript:|data:|vbscript:/i.test(sanitizedAttendance[field])) {
