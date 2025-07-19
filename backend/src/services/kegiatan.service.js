@@ -147,7 +147,8 @@ class KegiatanService {
       encoding: 'UTF-8',
       disableSmartShrinking: true,
       headerSpacing: 5,
-      footerSpacing: 5
+      footerSpacing: 5,
+      enableLocalFileAccess: true
     } : {
       pageWidth: '215mm',
       pageHeight: '330mm',
@@ -159,7 +160,8 @@ class KegiatanService {
       encoding: 'UTF-8',
       disableSmartShrinking: true,
       headerSpacing: 5,
-      footerSpacing: 5
+      footerSpacing: 5,
+      enableLocalFileAccess: true
     };
 
     return new Promise((resolve, reject) => {
@@ -250,11 +252,16 @@ class KegiatanService {
         body {
           font-family: Arial, sans-serif;
           margin: 0;
-          padding: 20px;
-          page-break-inside: avoid;
+          padding: 0;
+          font-size: 12px;
         }
         @page {
           margin: 15mm 10mm;
+          size: ${isLandscape ? '330mm 215mm' : '215mm 330mm'};
+        }
+        .container {
+          width: 100%;
+          max-width: 100%;
         }
         .header {
           text-align: center;
@@ -277,6 +284,7 @@ class KegiatanService {
           width: 100%;
           border-collapse: collapse;
           page-break-inside: auto;
+          table-layout: ${isLandscape ? 'fixed' : 'auto'};
         }
         thead {
           display: table-header-group;
@@ -290,52 +298,55 @@ class KegiatanService {
         }
         th, td {
           border: 1px solid #000;
-          padding: 8px 6px;
+          padding: ${isLandscape ? '4px 2px' : '6px 4px'};
           text-align: center;
           vertical-align: middle;
           word-wrap: break-word;
-          font-size: 11px;
-          line-height: 1rem;
+          font-size: ${isLandscape ? '9px' : '10px'};
+          line-height: 1.2;
         }
         th {
           background-color: #f5f5f5;
           font-weight: bold;
-          font-size: 11px;
+          font-size: ${isLandscape ? '9px' : '10px'};
         }
         .attendance-field {
           text-align: left !important;
+          max-width: ${isLandscape ? '80px' : '120px'};
         }
         .signature-cell {
-          width: ${isLandscape ? '80px' : '100px'};
-          min-height: ${isLandscape ? '35px' : '45px'};
+          width: ${isLandscape ? '60px' : '80px'};
+          min-height: ${isLandscape ? '25px' : '35px'};
         }
         .signature-cell img {
-          max-width: ${isLandscape ? '75px' : '95px'};
-          max-height: ${isLandscape ? '30px' : '40px'};
+          max-width: ${isLandscape ? '55px' : '75px'};
+          max-height: ${isLandscape ? '20px' : '30px'};
           object-fit: contain;
         }
         .no-col {
-          width: ${isLandscape ? '30px' : '40px'};
+          width: ${isLandscape ? '25px' : '35px'};
         }
         .waktu-col {
-          width: ${isLandscape ? '80px' : '100px'};
+          width: ${isLandscape ? '60px' : '80px'};
+          font-size: ${isLandscape ? '8px' : '9px'};
         }
       </style>
     </head>
     <body>
-      <div class="header">
-        <h1>DAFTAR HADIR</h1>
-        <div class="details">
-          <p><strong>Kegiatan:</strong> ${kegiatan.nama}</p>
-          <p><strong>Total Presensi:</strong> ${presensiList.length} orang</p>
-          <p><strong>Tanggal Export:</strong> ${new Date().toLocaleDateString('id-ID')}</p>
+      <div class="container">
+        <div class="header">
+          <h1>DAFTAR HADIR</h1>
+          <div class="details">
+            <p><strong>Kegiatan:</strong> ${kegiatan.nama}</p>
+            <p><strong>Total Presensi:</strong> ${presensiList.length} orang</p>
+            <p><strong>Tanggal Export:</strong> ${new Date().toLocaleDateString('id-ID')}</p>
+          </div>
         </div>
-      </div>
 
-      <table>
-        <thead>
-          <tr>
-            ${headers.map((header, index) => {
+        <table>
+          <thead>
+            <tr>
+              ${headers.map((header, index) => {
       let className = '';
       if (index === 0) className = 'no-col';
       else if (index === headers.length - 2) className = 'waktu-col';
@@ -362,6 +373,7 @@ class KegiatanService {
           `).join('')}
         </tbody>
       </table>
+      </div>
     </body>
     </html>
     `;
