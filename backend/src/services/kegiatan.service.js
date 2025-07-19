@@ -140,22 +140,26 @@ class KegiatanService {
       pageWidth: '215mm',
       pageHeight: '330mm',
       orientation: 'Landscape',
-      marginTop: '0',
-      marginBottom: '0',
-      marginLeft: '0',
-      marginRight: '0',
+      marginTop: '15mm',
+      marginBottom: '15mm',
+      marginLeft: '10mm',
+      marginRight: '10mm',
       encoding: 'UTF-8',
-      disableSmartShrinking: true
+      disableSmartShrinking: true,
+      headerSpacing: 5,
+      footerSpacing: 5
     } : {
       pageWidth: '215mm',
       pageHeight: '330mm',
       orientation: 'Portrait',
-      marginTop: '0',
-      marginBottom: '0',
-      marginLeft: '0',
-      marginRight: '0',
+      marginTop: '15mm',
+      marginBottom: '15mm',
+      marginLeft: '10mm',
+      marginRight: '10mm',
       encoding: 'UTF-8',
-      disableSmartShrinking: true
+      disableSmartShrinking: true,
+      headerSpacing: 5,
+      footerSpacing: 5
     };
 
     return new Promise((resolve, reject) => {
@@ -246,11 +250,16 @@ class KegiatanService {
         body {
           font-family: Arial, sans-serif;
           margin: 0;
-          padding: 40px;
+          padding: 20px;
+          page-break-inside: avoid;
+        }
+        @page {
+          margin: 15mm 10mm;
         }
         .header {
           text-align: center;
-          margin-bottom: 10px;
+          margin-bottom: 20px;
+          page-break-inside: avoid;
         }
         .header h1 {
           margin: 0 0 20px 0;
@@ -267,6 +276,17 @@ class KegiatanService {
         table {
           width: 100%;
           border-collapse: collapse;
+          page-break-inside: auto;
+        }
+        thead {
+          display: table-header-group;
+        }
+        tbody {
+          display: table-row-group;
+        }
+        tr {
+          page-break-inside: avoid;
+          page-break-after: auto;
         }
         th, td {
           border: 1px solid #000;
